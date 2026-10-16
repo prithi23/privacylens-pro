@@ -27,8 +27,8 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 4035,
-      "sha256": "f210817fcdec2458505299db4569c0fc3b0aaa56e5fe277bc5e5651d1eb71ea1"
+      "bytes": 4756,
+      "sha256": "bcc925bd94bc7f559b818daabdb42f58d93f0c044c830fbf2f0eae4ae7c7698c"
     },
     {
       "path": ".gitignore",
@@ -567,8 +567,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 12589,
-      "sha256": "a405d8cf4776c78573a01c486b3bc60ccce0d0a417aaf34bde94e4030471885a"
+      "bytes": 14060,
+      "sha256": "f472bf80e73d785b7e1cf7d21bd52d1cf6e20d1dbcdc138fc3cd9aa81795bd03"
     },
     {
       "path": "docs/EVALUATION.md",
@@ -727,8 +727,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 2379,
-      "sha256": "8f8b398e0436a93961a031e39aa72e471b2826b7a9345b039d7f3905a0fe24ec"
+      "bytes": 2460,
+      "sha256": "61ba4b9f6036a0e2a666194c924a75dc09fe9d3d015e0c34f61b5c6565ff2147"
     },
     {
       "path": "packages/shared/package.json",
@@ -897,8 +897,8 @@
     },
     {
       "path": "scripts/release-check.mjs",
-      "bytes": 3231,
-      "sha256": "57aa0b10324c3c582f5fe143a0183358d5c17a842cf49374b7dc1be6b3e4c7b7"
+      "bytes": 5410,
+      "sha256": "5b2a4bac2443117cefddb5a74a69d4de8eeb4d4bee33516ed5a6fe689ca1f085"
     },
     {
       "path": "scripts/research-baseline.mjs",

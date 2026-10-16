@@ -1,6 +1,6 @@
 # Deployment preparation and operations runbook
 
-**Prepared, not deployed.** No host, database, domain, certificate, GitHub repository or external account has been created. The templates below require explicit owner approval before provisioning or public operation. Docker and Caddy are not installed locally; YAML/static checks do not establish a successful container/HTTPS deployment. Remote CI includes build/proxy validation but has not executed yet.
+**Prepared, not deployed.** The deployment preparation does not create a host, database, domain, certificate or external account. The templates below require explicit owner approval before provisioning or public operation. Docker and Caddy are not installed locally; YAML/static checks do not establish a successful container/HTTPS deployment. CI run #2 reached container validation but failed because the required service environment file was absent. The workflow fix below still needs a new CI execution.
 
 ## Chosen topology
 
@@ -39,6 +39,10 @@ docker compose --env-file deploy/.env.production -f deploy/compose.production.ym
 ```
 
 Use `config --quiet`; expanded Compose output can reveal environment secrets. Build/run validation should include the Caddy adapter, runtime health and public-port isolation. CI builds the three targets and runs `caddy validate` without starting a public server or contacting the sample hostname.
+
+CI supplies the required service `env_file` by copying only the checked-in placeholder template into an ignored, temporary `deploy/.env.production`. The CLI `--env-file` controls interpolation and does not replace a service's `env_file` requirement. An exclusive creation guard refuses existing files or symlinks; restrictive permissions and a subshell exit trap remove the placeholder file after validation, including on validation failure, before image builds. No production secrets are needed, read from local configuration, printed or uploaded. `.dockerignore` also excludes production environment files. The production Compose contract remains unchanged: a real, privately configured environment file and managed PostgreSQL are required on an approved host. See [Docker's service environment-file reference](https://docs.docker.com/reference/compose-file/services/#env_file).
+
+The subsequent CI runtime checks use only the disposable CI PostgreSQL service, API readiness and a loopback-bound static web port with `PUBLIC_DOMAIN=:8080`. They do not start the production Compose stack, apply migrations to a managed database, obtain certificates or contact the sample production hostname. These checks cover image startup and static delivery; actual HTTPS, authenticated proxy requests and approved managed-database connectivity remain deployment acceptance checks.
 
 ## Managed PostgreSQL and release jobs
 

@@ -62,8 +62,24 @@ jobs:
         env:
           EXTENSION_API_ORIGIN: https://privacy.example.com
       - name: Validate container and reverse-proxy preparation
+        shell: bash
         run: |
-          docker compose --env-file deploy/.env.production.example -f deploy/compose.production.yml config --quiet
+          set -euo pipefail
+          (
+            # Compose's service env_file is separate from CLI interpolation.
+            # Use only the checked-in placeholders; never replace a host's file.
+            umask 077
+            if [[ -e deploy/.env.production || -L deploy/.env.production ]]; then
+              echo 'Refusing to replace an existing production environment file.' >&2
+              exit 1
+            fi
+            set -o noclobber
+            : > deploy/.env.production
+            trap 'rm -f deploy/.env.production' EXIT
+            cat deploy/.env.production.example >> deploy/.env.production
+            docker compose --env-file deploy/.env.production -f deploy/compose.production.yml config --quiet
+          )
+          # The temporary environment file is already removed before builds.
           docker build -f deploy/Dockerfile --target api -t privacylens-api:ci .
           docker build -f deploy/Dockerfile --target migration -t privacylens-migration:ci .
           docker build -f deploy/Dockerfile --target web -t privacylens-web:ci .

@@ -48,7 +48,67 @@ for (const command of [
 ])
   assert.ok(commands.includes(command), `Missing CI gate: ${command}`);
 assert.ok(!/migrate reset|pull_request_target/.test(commands));
+const containerValidation = job.steps.find(
+  (step) => step.name === 'Validate container and reverse-proxy preparation',
+);
+assert.equal(containerValidation?.shell, 'bash');
+const containerCommands = containerValidation.run;
+for (const guard of [
+  'set -euo pipefail',
+  'umask 077',
+  '[[ -e deploy/.env.production || -L deploy/.env.production ]]',
+  'set -o noclobber',
+  ': > deploy/.env.production',
+  "trap 'rm -f deploy/.env.production' EXIT",
+  'cat deploy/.env.production.example >> deploy/.env.production',
+  'docker compose --env-file deploy/.env.production -f deploy/compose.production.yml config --quiet',
+  ')\n',
+])
+  assert.ok(
+    containerCommands.includes(guard),
+    `Missing temporary CI environment guard: ${guard}`,
+  );
+assert.ok(
+  containerCommands.indexOf("trap 'rm -f deploy/.env.production' EXIT") <
+    containerCommands.indexOf('cat deploy/.env.production.example'),
+);
+assert.ok(
+  containerCommands.indexOf('config --quiet\n') <
+    containerCommands.indexOf(')\n') &&
+    containerCommands.indexOf(')\n') <
+      containerCommands.indexOf('docker build'),
+  'Clean up the temporary environment before any image build',
+);
+for (const target of ['api', 'migration', 'web'])
+  assert.ok(
+    containerCommands.includes(
+      `docker build -f deploy/Dockerfile --target ${target} -t privacylens-${target}:ci .`,
+    ),
+    `Missing container build: ${target}`,
+  );
+assert.ok(
+  containerCommands.includes(
+    'docker run --rm -e PUBLIC_DOMAIN=privacy.example.com privacylens-web:ci caddy validate',
+  ),
+);
+const runtimeCommands = job.steps.find(
+  (step) => step.name === 'Exercise prepared runtime images privately in CI',
+)?.run;
+assert.ok(runtimeCommands?.includes('trap '));
+assert.ok(runtimeCommands.includes('--network host -e DATABASE_URL'));
+assert.ok(runtimeCommands.includes('-p 127.0.0.1:14083:8080'));
+for (const url of [
+  'http://127.0.0.1:14082/api/v1/ready',
+  'http://127.0.0.1:14083/',
+])
+  assert.ok(
+    runtimeCommands.includes(
+      `curl --fail --retry 10 --retry-connrefused --retry-delay 1 ${url}`,
+    ),
+  );
 const compose = load(read('deploy/compose.production.yml'));
+for (const name of ['api', 'migrate'])
+  assert.equal(compose.services[name].env_file, '.env.production');
 assert.ok(!compose.services.api.ports && !compose.services.api.volumes);
 assert.equal(compose.services.api.environment.NODE_ENV, 'production');
 assert.equal(compose.services.api.environment.TRUST_PROXY, '172.30.0.2/32');
