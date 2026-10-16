@@ -1,14 +1,14 @@
 # Clean publication snapshot
 
-Phase 7 Part B remediation authorizes local preparation only. The publication directory is a separate, allowlisted copy of the audited working tree with **no `.git` directory or original commit history**. It is not a new Git repository. Nothing has been staged, committed, renamed, pushed or deployed. Original history/accounts/databases remain unchanged.
+Phase 7 Part B originally prepared a separate, allowlisted copy of the audited working tree with **no `.git` directory or original commit history**. The owner subsequently initialized the publication repository and ran GitHub CI. The source inventory below excludes that new Git metadata. The CI remediation changes working files only; it does not stage, commit, push, rewrite history, deploy or access databases. The original project and its history/accounts/databases remain unchanged.
 
 ## Contents and verification
 
-The reviewed 182-file inventory is retained, with four explicit additions: this guide, `scripts/publication-policy.mjs`, its regression tests, and `scripts/prepare-publication.mjs`. The snapshot therefore has **186 payload files plus `PUBLICATION_MANIFEST.json` = 187 files**. The manifest records byte sizes and SHA-256 fingerprints for every payload file; its own filename is included by the verifier's exact file-set check rather than a circular self-hash. Hashes detect subsequent changes; they do not independently prove provenance or replace review.
+The reviewed 182-file inventory is retained. The initial snapshot added this guide, `scripts/publication-policy.mjs`, its regression tests, and `scripts/prepare-publication.mjs` (187 files including the manifest). The CI run #3 remediation explicitly adds `scripts/container-smoke.mjs` and `scripts/container-smoke.test.mjs`. The current source inventory is therefore **188 payload files plus `PUBLICATION_MANIFEST.json` = 189 files**, excluding Git metadata and ignored local tooling. Both additions are recorded in the manifest and publication preparation allowlist. The manifest records byte sizes and SHA-256 fingerprints for every payload file; its own filename is included by the verifier's exact file-set check rather than a circular self-hash. Hashes detect subsequent changes; they do not independently prove provenance or replace review.
 
 Source/tests, MIT license, README, architecture/ER documentation, reviewed fixture screenshots/research reports, all four Prisma migrations, seed and CI/deployment configuration are included. Only `.env.example` and `deploy/.env.production.example` are included as explicitly public templates. They contain documented placeholders, never working secrets. The local `.env`, private exports, SQL dumps, HAR/SQLite files, caches, dependencies, builds, generated Prisma output, audit/browser folders and history are excluded. Arbitrarily renamed secrets are additionally checked by content, with narrow documented fixture exceptions; no scanner can guarantee detection of all future leaks.
 
-Run from the original source repository, without initializing Git in the snapshot:
+For a fresh history-free snapshot, run from the source repository without initializing Git in that snapshot:
 
 ```powershell
 node scripts/security-repo.mjs --snapshot ../privacylens-publication
@@ -17,7 +17,7 @@ node scripts/release-check.mjs --root ../privacylens-publication
 npm run test:publication
 ```
 
-These commands validate actual snapshot files using installed source tooling; they do not install dependencies or modify the snapshot/database. `--snapshot` walks every file without consulting any parent Git repository and rejects Git metadata, symlinks and forbidden artifacts. The verifier also compares current local environment secrets in memory when run from the original source, without printing their values. Do not run ordinary repository mode there until Git initialization has been separately authorized.
+These commands validate actual snapshot files using installed source tooling; they do not install dependencies or modify the snapshot/database. `--snapshot` walks every file without consulting any parent Git repository and rejects Git metadata, symlinks and forbidden artifacts. The verifier also compares current local environment secrets in memory when run from the original source, without printing their values. Snapshot verification intentionally rejects `.git`; for the already initialized publication repository, use `npm run security`, `npm run release`, `npm run test:publication` and `npm run test:containers` instead. The security scanner covers the working tree, index and reachable history without changing them.
 
 Reproduction of creation requires the previously reviewed local 182-path allowlist. The creation command refuses unreviewed additions, unsafe paths, existing destinations, content findings and symlinks, and never recursively deletes an output. The allowlist and private audit evidence remain outside the snapshot. Do not re-create over a reviewed snapshot; choose a new sibling name and review again.
 

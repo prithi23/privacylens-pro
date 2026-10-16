@@ -25,6 +25,8 @@ const extras = [
   'scripts/publication-policy.test.mjs',
   'scripts/prepare-publication.mjs',
   'docs/PUBLICATION_SNAPSHOT.md',
+  'scripts/container-smoke.mjs',
+  'scripts/container-smoke.test.mjs',
 ];
 const manifestName = 'PUBLICATION_MANIFEST.json';
 const sha = (data) => createHash('sha256').update(data).digest('hex');

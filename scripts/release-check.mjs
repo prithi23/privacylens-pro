@@ -32,6 +32,7 @@ const commands = job.steps
 for (const command of [
   'security:repo',
   'test:publication',
+  'test:containers',
   'release:check',
   'typecheck',
   'lint',
@@ -91,20 +92,30 @@ assert.ok(
     'docker run --rm -e PUBLIC_DOMAIN=privacy.example.com privacylens-web:ci caddy validate',
   ),
 );
-const runtimeCommands = job.steps.find(
+const runtimeStep = job.steps.find(
   (step) => step.name === 'Exercise prepared runtime images privately in CI',
-)?.run;
-assert.ok(runtimeCommands?.includes('trap '));
-assert.ok(runtimeCommands.includes('--network host -e DATABASE_URL'));
-assert.ok(runtimeCommands.includes('-p 127.0.0.1:14083:8080'));
-for (const url of [
+);
+assert.equal(runtimeStep?.run, 'node scripts/container-smoke.mjs');
+assert.equal(runtimeStep['timeout-minutes'], 5);
+const runtimeScript = read('scripts/container-smoke.mjs');
+for (const guard of [
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'maxAttempts = 20',
+  'deadlineMs = 45000',
+  "'127.0.0.1:14083:8080'",
+  "'PUBLIC_DOMAIN=:8080'",
+  "'{{json .State}}'",
+  'sanitizeDiagnostic',
+  'validateFrontend',
+  'validateApi',
   'http://127.0.0.1:14082/api/v1/ready',
   'http://127.0.0.1:14083/',
+  "['rm', '-f', ...names]",
 ])
   assert.ok(
-    runtimeCommands.includes(
-      `curl --fail --retry 10 --retry-connrefused --retry-delay 1 ${url}`,
-    ),
+    runtimeScript.includes(guard),
+    `Missing runtime smoke guard: ${guard}`,
   );
 const compose = load(read('deploy/compose.production.yml'));
 for (const name of ['api', 'migrate'])

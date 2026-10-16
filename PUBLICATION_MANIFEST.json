@@ -6,9 +6,11 @@
     "scripts/publication-policy.mjs",
     "scripts/publication-policy.test.mjs",
     "scripts/prepare-publication.mjs",
-    "docs/PUBLICATION_SNAPSHOT.md"
+    "docs/PUBLICATION_SNAPSHOT.md",
+    "scripts/container-smoke.mjs",
+    "scripts/container-smoke.test.mjs"
   ],
-  "totalFiles": 187,
+  "totalFiles": 189,
   "files": [
     {
       "path": ".dockerignore",
@@ -27,8 +29,8 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 4756,
-      "sha256": "bcc925bd94bc7f559b818daabdb42f58d93f0c044c830fbf2f0eae4ae7c7698c"
+      "bytes": 4265,
+      "sha256": "735dc126d81711b49f009486e34f6774ce445a5468ef89ae3f6f1275b971e2f9"
     },
     {
       "path": ".gitignore",
@@ -567,8 +569,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 14060,
-      "sha256": "f472bf80e73d785b7e1cf7d21bd52d1cf6e20d1dbcdc138fc3cd9aa81795bd03"
+      "bytes": 16754,
+      "sha256": "339f2493a2c98b7dcb090c53b7f6296154693eae5f207a96fff655b800f88712"
     },
     {
       "path": "docs/EVALUATION.md",
@@ -607,8 +609,8 @@
     },
     {
       "path": "docs/PUBLICATION_SNAPSHOT.md",
-      "bytes": 4500,
-      "sha256": "9b3d718a7be26663727778280787bbaf452ca3660575af20e048ceb51fdbb257"
+      "bytes": 5161,
+      "sha256": "596503fbd4de96657d6d57c7df47c264a95940e59a3b88aab10f132dad5df89a"
     },
     {
       "path": "docs/RELEASE_READINESS.md",
@@ -727,8 +729,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 2460,
-      "sha256": "61ba4b9f6036a0e2a666194c924a75dc09fe9d3d015e0c34f61b5c6565ff2147"
+      "bytes": 2531,
+      "sha256": "82b19ad51cbc458bbf30d2fb8b7b9c1b79de87e3cbd9d2faaf7c31e99030cb9f"
     },
     {
       "path": "packages/shared/package.json",
@@ -856,6 +858,16 @@
       "sha256": "3af146619f4f1843d00aee9c194c0f05e0cc4701f380c451052496c7330e75cc"
     },
     {
+      "path": "scripts/container-smoke.mjs",
+      "bytes": 9300,
+      "sha256": "cf1dfe4120032d6a56a32491b366457e1ed48c06ac22223bc9d1deabbe817ec3"
+    },
+    {
+      "path": "scripts/container-smoke.test.mjs",
+      "bytes": 10397,
+      "sha256": "1c66df726a39715b047aa68910498dbbf218fd798badb8d8367b1f0afe9cd497"
+    },
+    {
       "path": "scripts/database-admin.mjs",
       "bytes": 5678,
       "sha256": "8378145fd559a017bc644bf92270751c8617ed005f928e6d1f4ec093fcdb5219"
@@ -882,8 +894,8 @@
     },
     {
       "path": "scripts/prepare-publication.mjs",
-      "bytes": 8370,
-      "sha256": "00b88a37a4fc0d3c7076c8b749de77141c38bcc41e54fcc92c75f5fc0e456673"
+      "bytes": 8441,
+      "sha256": "f646c8f7931003a54abc771f831c7afec49f67167d4906e6ca7228fa47b6336c"
     },
     {
       "path": "scripts/publication-policy.mjs",
@@ -897,8 +909,8 @@
     },
     {
       "path": "scripts/release-check.mjs",
-      "bytes": 5410,
-      "sha256": "5b2a4bac2443117cefddb5a74a69d4de8eeb4d4bee33516ed5a6fe689ca1f085"
+      "bytes": 5635,
+      "sha256": "fd400d1a8b620f005c989d0a417d288a6fcb59264372dc55801fceb9fd872ecb"
     },
     {
       "path": "scripts/research-baseline.mjs",

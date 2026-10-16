@@ -18,6 +18,7 @@
     "security": "npm run security:repo",
     "security:repo": "node scripts/security-repo.mjs",
     "test:publication": "node --test scripts/publication-policy.test.mjs",
+    "test:containers": "node --test scripts/container-smoke.test.mjs",
     "release": "npm run release:check",
     "release:check": "node scripts/release-check.mjs",
     "typecheck": "npm run typecheck --workspaces --if-present",

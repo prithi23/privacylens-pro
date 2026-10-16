@@ -37,6 +37,7 @@ jobs:
       - run: npm ci
       - run: npm run security:repo
       - run: npm run test:publication
+      - run: npm run test:containers
       - run: npm run release:check
       - run: npm audit --audit-level=high
       - run: npm run db:generate
@@ -85,12 +86,8 @@ jobs:
           docker build -f deploy/Dockerfile --target web -t privacylens-web:ci .
           docker run --rm -e PUBLIC_DOMAIN=privacy.example.com privacylens-web:ci caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
       - name: Exercise prepared runtime images privately in CI
-        run: |
-          trap 'docker rm -f privacylens-api-ci privacylens-web-ci >/dev/null 2>&1 || true' EXIT
-          docker run -d --name privacylens-api-ci --network host -e DATABASE_URL -e WEB_ORIGINS=https://privacy.example.com -e HOST=127.0.0.1 -e PORT=14082 privacylens-api:ci
-          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:14082/api/v1/ready
-          docker run -d --name privacylens-web-ci -p 127.0.0.1:14083:8080 -e PUBLIC_DOMAIN=:8080 privacylens-web:ci
-          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:14083/
+        timeout-minutes: 5
+        run: node scripts/container-smoke.mjs
       - name: Resolve installed Chrome for native workflow verification
         run: |
           command -v google-chrome
