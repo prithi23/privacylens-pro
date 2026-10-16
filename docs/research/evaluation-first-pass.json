@@ -1,0 +1,692 @@
+{
+  "reportVersion": 1,
+  "measuredAt": "2026-10-16T10:04:51.142Z",
+  "environment": {
+    "runtime": "v24.12.0",
+    "platform": "win32"
+  },
+  "sourceFingerprint": "1b040b7b24234e674c11d60ab45fd3efb8accc24558a9b4d9b740d58db72ca37",
+  "dataset": {
+    "version": "privacylens-reference-2026.10.16",
+    "reviewedAt": "2026-10-16",
+    "license": "CC0-1.0",
+    "attribution": "PrivacyLens contributors; independently curated factual endpoint references and original descriptions. Vendor documentation is linked, not redistributed.",
+    "rule": "hostname-boundary-v1",
+    "coverage": "Curated endpoint associations, not an exhaustive tracker list; no DNS/CNAME resolution or behavior verification.",
+    "providerCount": 13,
+    "domainCount": 19
+  },
+  "scoringVersion": "exposure-v2",
+  "methodology": "One independently labeled scenario per row. TP/TN/FP/FN assess provider-domain exposure under the fixture design, not actual tracking execution. Includes deliberate out-of-band coverage-stress misses. CPU timings use performance.now, warmup and repeated samples; no DOM/network timing is implied.",
+  "overall": {
+    "truePositives": 16,
+    "falsePositives": 0,
+    "trueNegatives": 9,
+    "falseNegatives": 4,
+    "precision": 1,
+    "recall": 0.8,
+    "f1": 0.8888888888888888,
+    "total": 29
+  },
+  "observable": {
+    "truePositives": 16,
+    "falsePositives": 0,
+    "trueNegatives": 9,
+    "falseNegatives": 0,
+    "precision": 1,
+    "recall": 1,
+    "f1": 1,
+    "total": 25
+  },
+  "stress": {
+    "truePositives": 0,
+    "falsePositives": 0,
+    "trueNegatives": 0,
+    "falseNegatives": 4,
+    "precision": null,
+    "recall": 0,
+    "f1": 0,
+    "total": 4
+  },
+  "categoryDistribution": [
+    {
+      "category": "analytics",
+      "count": 7
+    },
+    {
+      "category": "advertising",
+      "count": 2
+    },
+    {
+      "category": "session-replay",
+      "count": 3
+    },
+    {
+      "category": "social",
+      "count": 3
+    },
+    {
+      "category": "other",
+      "count": 1
+    }
+  ],
+  "matching": {
+    "workload": "1000 host lookups; identical 13-provider dataset; 5 warmups and 30 samples; excludes DOM/network",
+    "linear": {
+      "medianMs": 4.0383999999999105,
+      "p95Ms": 5.518800000000056,
+      "samples": 30
+    },
+    "indexed": {
+      "medianMs": 1.0839000000000851,
+      "p95Ms": 1.4369999999998981,
+      "samples": 30
+    }
+  },
+  "analysis": {
+    "current": {
+      "medianMs": 4.576099999999997,
+      "p95Ms": 8.078700000000026,
+      "samples": 30
+    },
+    "baseline": {
+      "phase": 5,
+      "checkpoint": "a97e5e0",
+      "measuredAt": "2026-10-16T09:35:52.997Z",
+      "node": "v24.12.0",
+      "scope": "Synthetic 1000-observation analysis, 5 warmups, 30 iterations; includes validation/domain grouping/scoring, excludes DOM collection/network",
+      "baselineUnitTests": 121,
+      "baselinePostgresTests": 57,
+      "medianMs": 5.788400000000138,
+      "p95Ms": 9.61909999999989,
+      "samplesMs": [
+        3.160899999999856, 4.181799999999839, 4.196700000000192,
+        4.390600000000177, 4.441600000000108, 5.253699999999981,
+        5.287900000000036, 5.325800000000072, 5.326099999999997,
+        5.574700000000121, 5.6340000000000146, 5.64689999999996,
+        5.657399999999825, 5.668799999999919, 5.68119999999999,
+        5.788400000000138, 5.792100000000119, 6.18300000000022,
+        6.239900000000034, 6.340599999999995, 6.736599999999953,
+        6.778700000000072, 6.898799999999937, 7.30619999999999,
+        7.3612000000000535, 7.897300000000087, 8.01929999999993,
+        8.921199999999999, 9.61909999999989, 14.096000000000004
+      ],
+      "bundles": [
+        {
+          "app": "extension",
+          "name": "es6-DEE8FQgo.js",
+          "bytes": 347920,
+          "gzipBytes": 134712
+        },
+        {
+          "app": "extension",
+          "name": "index-BQ2qOzat.js",
+          "bytes": 240671,
+          "gzipBytes": 75074
+        },
+        {
+          "app": "extension",
+          "name": "scan-BNoffwzX.js",
+          "bytes": 10356,
+          "gzipBytes": 4288
+        },
+        {
+          "app": "extension",
+          "name": "SyncPanel-DK9x7pDO.js",
+          "bytes": 6641,
+          "gzipBytes": 2756
+        },
+        {
+          "app": "web",
+          "name": "Comparison-eLFt-Bgo.js",
+          "bytes": 3754,
+          "gzipBytes": 1545
+        },
+        {
+          "app": "web",
+          "name": "DataUI-Buj8slhu.js",
+          "bytes": 3136,
+          "gzipBytes": 1309
+        },
+        {
+          "app": "web",
+          "name": "History-tH40WiyP.js",
+          "bytes": 6341,
+          "gzipBytes": 2392
+        },
+        {
+          "app": "web",
+          "name": "index-DDPdDPu-.js",
+          "bytes": 322562,
+          "gzipBytes": 98407
+        },
+        {
+          "app": "web",
+          "name": "Intelligence-Bfdk_1jJ.js",
+          "bytes": 2109,
+          "gzipBytes": 1001
+        },
+        {
+          "app": "web",
+          "name": "LineChart-CfPWXsJ5.js",
+          "bytes": 353726,
+          "gzipBytes": 101971
+        },
+        {
+          "app": "web",
+          "name": "Overview-_h0X-DDv.js",
+          "bytes": 24209,
+          "gzipBytes": 8156
+        },
+        {
+          "app": "web",
+          "name": "Settings-C6A7dw0P.js",
+          "bytes": 6866,
+          "gzipBytes": 2511
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "ga",
+      "family": "known-provider",
+      "stress": false,
+      "rationale": "Documented analytics endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["google-analytics"],
+      "score": 92,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.08740000000000236,
+        "p95Ms": 0.300899999999956,
+        "samples": 25
+      }
+    },
+    {
+      "id": "ads",
+      "family": "known-provider",
+      "stress": false,
+      "rationale": "Documented advertising domain subdomain.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["doubleclick"],
+      "score": 88,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.05480000000000018,
+        "p95Ms": 0.08720000000005257,
+        "samples": 25
+      }
+    },
+    {
+      "id": "meta",
+      "family": "known-provider",
+      "stress": false,
+      "rationale": "Advertising SDK reference.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["meta"],
+      "score": 88,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.033299999999940155,
+        "p95Ms": 0.06970000000001164,
+        "samples": 25
+      }
+    },
+    {
+      "id": "hotjar",
+      "family": "known-provider",
+      "stress": false,
+      "rationale": "Behavior/session replay provider association.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["hotjar"],
+      "score": 86,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.030700000000024374,
+        "p95Ms": 0.04579999999998563,
+        "samples": 25
+      }
+    },
+    {
+      "id": "segment",
+      "family": "behavioral-analytics",
+      "stress": false,
+      "rationale": "Documented event SDK delivery.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["segment"],
+      "score": 92,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.03380000000004202,
+        "p95Ms": 0.2015999999999849,
+        "samples": 25
+      }
+    },
+    {
+      "id": "mixpanel",
+      "family": "behavioral-analytics",
+      "stress": false,
+      "rationale": "Documented behavioral SDK delivery.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["mixpanel"],
+      "score": 92,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.038399999999910506,
+        "p95Ms": 0.0523000000000593,
+        "samples": 25
+      }
+    },
+    {
+      "id": "amplitude",
+      "family": "behavioral-analytics",
+      "stress": false,
+      "rationale": "Documented event ingestion endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["amplitude"],
+      "score": 92,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.039499999999975444,
+        "p95Ms": 0.08309999999994488,
+        "samples": 25
+      }
+    },
+    {
+      "id": "clarity",
+      "family": "session-replay",
+      "stress": false,
+      "rationale": "Documented behavioral service hostname.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["clarity"],
+      "score": 86,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.03339999999991505,
+        "p95Ms": 0.06799999999998363,
+        "samples": 25
+      }
+    },
+    {
+      "id": "fullstory",
+      "family": "session-replay",
+      "stress": false,
+      "rationale": "Documented capture SDK endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["fullstory"],
+      "score": 86,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.032500000000027285,
+        "p95Ms": 0.06179999999994834,
+        "samples": 25
+      }
+    },
+    {
+      "id": "linkedin",
+      "family": "social",
+      "stress": false,
+      "rationale": "Documented social conversion endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["linkedin"],
+      "score": 90,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.04259999999999309,
+        "p95Ms": 0.08600000000001273,
+        "samples": 25
+      }
+    },
+    {
+      "id": "pinterest",
+      "family": "social",
+      "stress": false,
+      "rationale": "Documented social conversion endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["pinterest"],
+      "score": 90,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.02109999999993306,
+        "p95Ms": 0.03049999999996089,
+        "samples": 25
+      }
+    },
+    {
+      "id": "x",
+      "family": "social",
+      "stress": false,
+      "rationale": "Documented conversion measurement endpoint.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["x-pixel"],
+      "score": 90,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.01710000000002765,
+        "p95Ms": 0.037599999999997635,
+        "samples": 25
+      }
+    },
+    {
+      "id": "diagnostics",
+      "family": "diagnostics",
+      "stress": false,
+      "rationale": "Privacy-relevant diagnostic SDK association; not a malware or advertising verdict.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["sentry"],
+      "score": 96,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.02980000000002292,
+        "p95Ms": 0.03340000000002874,
+        "samples": 25
+      }
+    },
+    {
+      "id": "normalization",
+      "family": "subdomains",
+      "stress": false,
+      "rationale": "Case normalization; collectors remove trailing DNS dots before the observation contract.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["google-analytics"],
+      "score": 92,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.03340000000002874,
+        "p95Ms": 0.04939999999999145,
+        "samples": 25
+      }
+    },
+    {
+      "id": "first-party",
+      "family": "first-party",
+      "stress": false,
+      "rationale": "Same registrable domain; benign fixture resource.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 100,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.021200000000021646,
+        "p95Ms": 0.03730000000007294,
+        "samples": 25
+      }
+    },
+    {
+      "id": "provider-first-party",
+      "family": "first-party",
+      "stress": false,
+      "rationale": "Known provider host is first-party in this scenario and excluded from third-party scoring.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 100,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.02760000000000673,
+        "p95Ms": 0.029300000000034743,
+        "samples": 25
+      }
+    },
+    {
+      "id": "cdn",
+      "family": "benign-control",
+      "stress": false,
+      "rationale": "Generic CDN reference is not automatically labeled tracking.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.029199999999946158,
+        "p95Ms": 0.03300000000001546,
+        "samples": 25
+      }
+    },
+    {
+      "id": "font",
+      "family": "benign-control",
+      "stress": false,
+      "rationale": "Font delivery is outside this curated tracker registry.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.02650000000005548,
+        "p95Ms": 0.059399999999982356,
+        "samples": 25
+      }
+    },
+    {
+      "id": "mixed-cdn",
+      "family": "benign-control",
+      "stress": false,
+      "rationale": "Mixed-purpose image CDN deliberately excluded from host-only rules.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.02430000000003929,
+        "p95Ms": 0.07929999999998927,
+        "samples": 25
+      }
+    },
+    {
+      "id": "prefix-impersonation",
+      "family": "false-positive-control",
+      "stress": false,
+      "rationale": "Substring prefix must not match.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.024299999999925603,
+        "p95Ms": 0.08779999999990196,
+        "samples": 25
+      }
+    },
+    {
+      "id": "suffix-impersonation",
+      "family": "false-positive-control",
+      "stress": false,
+      "rationale": "Embedded domain must not match.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.024900000000002365,
+        "p95Ms": 0.23919999999998254,
+        "samples": 25
+      }
+    },
+    {
+      "id": "public-suffix",
+      "family": "public-suffix",
+      "stress": false,
+      "rationale": "Registrable site example.co.uk remains first-party.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 100,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.009699999999952524,
+        "p95Ms": 0.010499999999979082,
+        "samples": 25
+      }
+    },
+    {
+      "id": "private-suffix",
+      "family": "public-suffix",
+      "stress": false,
+      "rationale": "Different private-suffix tenant is third-party, but not a reference match.",
+      "expected": false,
+      "predicted": false,
+      "outcome": "TN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.013299999999958345,
+        "p95Ms": 0.014200000000073487,
+        "samples": 25
+      }
+    },
+    {
+      "id": "mixed-http",
+      "family": "transport",
+      "stress": false,
+      "rationale": "An HTTP reference on HTTPS is observable, not proof that the browser completed it.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["google-analytics"],
+      "score": 87,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.03339999999991505,
+        "p95Ms": 0.042300000000068394,
+        "samples": 25
+      }
+    },
+    {
+      "id": "missing-timing-visible",
+      "family": "missing-timing",
+      "stress": false,
+      "rationale": "DOM evidence still permits a partial score.",
+      "expected": true,
+      "predicted": true,
+      "outcome": "TP",
+      "providers": ["mixpanel"],
+      "score": 92,
+      "coverage": "partial",
+      "latency": {
+        "medianMs": 0.024699999999938882,
+        "p95Ms": 0.033699999999953434,
+        "samples": 25
+      }
+    },
+    {
+      "id": "unlisted",
+      "family": "coverage-stress",
+      "stress": true,
+      "rationale": "Synthetic known-by-construction provider intentionally absent from reference; expected miss.",
+      "expected": true,
+      "predicted": false,
+      "outcome": "FN",
+      "providers": [],
+      "score": 97,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.019099999999980355,
+        "p95Ms": 0.02030000000002019,
+        "samples": 25
+      }
+    },
+    {
+      "id": "cname",
+      "family": "coverage-stress",
+      "stress": true,
+      "rationale": "Out-of-band fixture label says first-party alias points to analytics; no DNS capability exists.",
+      "expected": true,
+      "predicted": false,
+      "outcome": "FN",
+      "providers": [],
+      "score": 100,
+      "coverage": "snapshot",
+      "latency": {
+        "medianMs": 0.01599999999996271,
+        "p95Ms": 0.017800000000079308,
+        "samples": 25
+      }
+    },
+    {
+      "id": "missing-timing-hidden",
+      "family": "coverage-stress",
+      "stress": true,
+      "rationale": "Out-of-band activity exists but is absent from DOM and unavailable timing; expected miss.",
+      "expected": true,
+      "predicted": false,
+      "outcome": "FN",
+      "providers": [],
+      "score": 100,
+      "coverage": "partial",
+      "latency": {
+        "medianMs": 0.013599999999996726,
+        "p95Ms": 0.014499999999998181,
+        "samples": 25
+      }
+    },
+    {
+      "id": "restricted",
+      "family": "restricted",
+      "stress": true,
+      "rationale": "Restricted environment supplies neither source; score must be withheld, with a scenario-level miss.",
+      "expected": true,
+      "predicted": false,
+      "outcome": "FN",
+      "providers": [],
+      "score": null,
+      "coverage": "unavailable",
+      "latency": {
+        "medianMs": 0.016100000000051296,
+        "p95Ms": 0.027000000000043656,
+        "samples": 25
+      }
+    }
+  ],
+  "limitations": [
+    "Controlled, nonrepresentative corpus; no Internet-wide accuracy claim.",
+    "Positive/negative labels are fixture scenario labels; not claims about vendor behavior.",
+    "Intentional unlisted/CNAME/inaccessible scenarios demonstrate false negatives.",
+    "CPU timings exclude DOM collection, browser permissions, API/network and UI rendering.",
+    "No confidence interval or hardware-independent performance guarantee is claimed."
+  ]
+}

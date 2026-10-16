@@ -1,0 +1,94 @@
+name: PrivacyLens checks
+on:
+  push:
+  pull_request:
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: privacylens
+          POSTGRES_PASSWORD: ci_test_only
+          POSTGRES_DB: privacylens_ci_app
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U privacylens -d privacylens_ci_app"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://privacylens:ci_test_only@localhost:5432/privacylens_ci_app
+      TEST_DATABASE_URL: postgresql://privacylens:ci_test_only@localhost:5432/privacylens_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run security:repo
+      - run: npm run test:publication
+      - run: npm run release:check
+      - run: npm audit --audit-level=high
+      - run: npm run db:generate
+      - run: npm run db:validate
+      - name: Create separate disposable CI test database
+        run: docker exec ${{ job.services.postgres.id }} psql -U privacylens -d postgres -c 'CREATE DATABASE privacylens_test'
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm run db:migrate:test
+      - run: npm run db:seed:test
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run evaluate:check
+      - run: npm run test:integration
+      - run: npm run evaluate
+      - run: npm run build
+      - run: npm run test:smoke
+      - run: npm run verify:extension
+      - name: Build and verify HTTPS-only release extension without contacting a server
+        run: npm run build:extension:production
+        env:
+          EXTENSION_API_ORIGIN: https://privacy.example.com
+      - name: Validate container and reverse-proxy preparation
+        run: |
+          docker compose --env-file deploy/.env.production.example -f deploy/compose.production.yml config --quiet
+          docker build -f deploy/Dockerfile --target api -t privacylens-api:ci .
+          docker build -f deploy/Dockerfile --target migration -t privacylens-migration:ci .
+          docker build -f deploy/Dockerfile --target web -t privacylens-web:ci .
+          docker run --rm -e PUBLIC_DOMAIN=privacy.example.com privacylens-web:ci caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+      - name: Exercise prepared runtime images privately in CI
+        run: |
+          trap 'docker rm -f privacylens-api-ci privacylens-web-ci >/dev/null 2>&1 || true' EXIT
+          docker run -d --name privacylens-api-ci --network host -e DATABASE_URL -e WEB_ORIGINS=https://privacy.example.com -e HOST=127.0.0.1 -e PORT=14082 privacylens-api:ci
+          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:14082/api/v1/ready
+          docker run -d --name privacylens-web-ci -p 127.0.0.1:14083:8080 -e PUBLIC_DOMAIN=:8080 privacylens-web:ci
+          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:14083/
+      - name: Resolve installed Chrome for native workflow verification
+        run: |
+          command -v google-chrome
+          google-chrome --version
+          echo "CHROME_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+      - run: npm run test:browser-scanner
+      - run: npm run test:browser-sync
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: research-and-browser-evidence
+          retention-days: 7
+          path: |
+            docs/research/evaluation.json
+            docs/research/browser-performance.json
+            .browser-smoke/*report.json
+            .browser-smoke/*.png

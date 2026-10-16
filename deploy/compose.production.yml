@@ -1,0 +1,58 @@
+# Preparation only. Uses a managed PostgreSQL URL; never starts/resets a database.
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: api
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4000
+      WEB_ORIGINS: https://${PUBLIC_DOMAIN:?Set PUBLIC_DOMAIN}
+      TRUST_PROXY: 172.30.0.2/32
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    networks: [backend]
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: web
+    environment:
+      PUBLIC_DOMAIN: ${PUBLIC_DOMAIN:?Set PUBLIC_DOMAIN}
+    ports: ['80:80', '443:443', '443:443/udp']
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      backend:
+        ipv4_address: 172.30.0.2
+  migrate:
+    profiles: [release]
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: migration
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      WEB_ORIGINS: https://${PUBLIC_DOMAIN:?Set PUBLIC_DOMAIN}
+    networks: [backend]
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+volumes:
+  caddy_data:
+  caddy_config:

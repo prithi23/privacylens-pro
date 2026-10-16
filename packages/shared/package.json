@@ -1,0 +1,26 @@
+{
+  "name": "@privacylens/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./research-metrics": "./src/research-metrics.ts",
+    "./analysis": "./src/analysis.ts",
+    "./classification": "./src/classification.ts",
+    "./methodology": "./src/methodology.ts",
+    "./devices": "./src/devices.ts",
+    "./sync": "./src/sync.ts",
+    ".": "./src/index.ts",
+    "./trackers": "./src/trackers.ts",
+    "./observations": "./src/observations.ts",
+    "./domains": "./src/domains.ts",
+    "./preferences": "./src/preferences.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "^4.1.0",
+    "tldts": "^7.0.0"
+  }
+}

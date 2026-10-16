@@ -1,0 +1,308 @@
+{
+  "measuredAt": "2026-10-16T10:00:57.241Z",
+  "runtime": "v24.12.0",
+  "scope": "Actual test PostgreSQL, 2000 owned fixture scans, serial loopback HTTP, 3 warmups/20 samples. Auth uses a real DB session fixture; no login benchmark. Baseline is a97e5e0; current includes new metadata/analytics. Timing variance and changed responses prevent causal attribution.",
+  "postgres": {
+    "before": {
+      "latency": {
+        "medianMs": 1.3734000000004016,
+        "p95Ms": 2.1550999999999476,
+        "samples": 20
+      },
+      "plan": [
+        {
+          "QUERY PLAN": [
+            {
+              "Plan": {
+                "Node Type": "Limit",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Startup Cost": 8.3,
+                "Total Cost": 8.35,
+                "Plan Rows": 2,
+                "Plan Width": 560,
+                "Actual Startup Time": 0.046,
+                "Actual Total Time": 0.05,
+                "Actual Rows": 20,
+                "Actual Loops": 1,
+                "Shared Hit Blocks": 5,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Plans": [
+                  {
+                    "Node Type": "Incremental Sort",
+                    "Parent Relationship": "Outer",
+                    "Parallel Aware": false,
+                    "Async Capable": false,
+                    "Startup Cost": 8.3,
+                    "Total Cost": 8.35,
+                    "Plan Rows": 2,
+                    "Plan Width": 560,
+                    "Actual Startup Time": 0.046,
+                    "Actual Total Time": 0.047,
+                    "Actual Rows": 20,
+                    "Actual Loops": 1,
+                    "Sort Key": ["\"scannedAt\" DESC", "id"],
+                    "Presorted Key": ["\"scannedAt\""],
+                    "Full-sort Groups": {
+                      "Group Count": 1,
+                      "Sort Methods Used": ["quicksort"],
+                      "Sort Space Memory": {
+                        "Average Sort Space Used": 27,
+                        "Peak Sort Space Used": 27
+                      }
+                    },
+                    "Shared Hit Blocks": 5,
+                    "Shared Read Blocks": 0,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Dirtied Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Plans": [
+                      {
+                        "Node Type": "Index Scan",
+                        "Parent Relationship": "Outer",
+                        "Parallel Aware": false,
+                        "Async Capable": false,
+                        "Scan Direction": "Backward",
+                        "Index Name": "Scan_userId_scannedAt_idx",
+                        "Relation Name": "Scan",
+                        "Alias": "Scan",
+                        "Startup Cost": 0.27,
+                        "Total Cost": 8.29,
+                        "Plan Rows": 1,
+                        "Plan Width": 560,
+                        "Actual Startup Time": 0.017,
+                        "Actual Total Time": 0.029,
+                        "Actual Rows": 21,
+                        "Actual Loops": 1,
+                        "Index Cond": "((\"userId\" = 'cmvasrveo00001wuh8mgnm8ia'::text) AND (\"scannedAt\" >= '2026-10-15 10:00:53.991'::timestamp without time zone))",
+                        "Rows Removed by Index Recheck": 0,
+                        "Shared Hit Blocks": 5,
+                        "Shared Read Blocks": 0,
+                        "Shared Dirtied Blocks": 0,
+                        "Shared Written Blocks": 0,
+                        "Local Hit Blocks": 0,
+                        "Local Read Blocks": 0,
+                        "Local Dirtied Blocks": 0,
+                        "Local Written Blocks": 0,
+                        "Temp Read Blocks": 0,
+                        "Temp Written Blocks": 0
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Planning": {
+                "Shared Hit Blocks": 0,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0
+              },
+              "Planning Time": 0.145,
+              "Triggers": [],
+              "Execution Time": 0.078
+            }
+          ]
+        }
+      ]
+    },
+    "after": {
+      "latency": {
+        "medianMs": 2.5784999999996217,
+        "p95Ms": 2.8968999999997322,
+        "samples": 20
+      },
+      "plan": [
+        {
+          "QUERY PLAN": [
+            {
+              "Plan": {
+                "Node Type": "Limit",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Startup Cost": 13.78,
+                "Total Cost": 13.79,
+                "Plan Rows": 3,
+                "Plan Width": 560,
+                "Actual Startup Time": 1.248,
+                "Actual Total Time": 1.252,
+                "Actual Rows": 20,
+                "Actual Loops": 1,
+                "Shared Hit Blocks": 60,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Plans": [
+                  {
+                    "Node Type": "Sort",
+                    "Parent Relationship": "Outer",
+                    "Parallel Aware": false,
+                    "Async Capable": false,
+                    "Startup Cost": 13.78,
+                    "Total Cost": 13.79,
+                    "Plan Rows": 3,
+                    "Plan Width": 560,
+                    "Actual Startup Time": 1.246,
+                    "Actual Total Time": 1.249,
+                    "Actual Rows": 20,
+                    "Actual Loops": 1,
+                    "Sort Key": ["\"scannedAt\" DESC", "id"],
+                    "Sort Method": "top-N heapsort",
+                    "Sort Space Used": 27,
+                    "Sort Space Type": "Memory",
+                    "Shared Hit Blocks": 60,
+                    "Shared Read Blocks": 0,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Dirtied Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Plans": [
+                      {
+                        "Node Type": "Bitmap Heap Scan",
+                        "Parent Relationship": "Outer",
+                        "Parallel Aware": false,
+                        "Async Capable": false,
+                        "Relation Name": "Scan",
+                        "Alias": "Scan",
+                        "Startup Cost": 4.31,
+                        "Total Cost": 13.76,
+                        "Plan Rows": 3,
+                        "Plan Width": 560,
+                        "Actual Startup Time": 0.18,
+                        "Actual Total Time": 0.72,
+                        "Actual Rows": 2000,
+                        "Actual Loops": 1,
+                        "Recheck Cond": "((\"userId\" = 'cmvasrveo00001wuh8mgnm8ia'::text) AND (\"scannedAt\" >= '2026-10-15 10:00:53.991'::timestamp without time zone))",
+                        "Rows Removed by Index Recheck": 0,
+                        "Exact Heap Blocks": 36,
+                        "Lossy Heap Blocks": 0,
+                        "Shared Hit Blocks": 60,
+                        "Shared Read Blocks": 0,
+                        "Shared Dirtied Blocks": 0,
+                        "Shared Written Blocks": 0,
+                        "Local Hit Blocks": 0,
+                        "Local Read Blocks": 0,
+                        "Local Dirtied Blocks": 0,
+                        "Local Written Blocks": 0,
+                        "Temp Read Blocks": 0,
+                        "Temp Written Blocks": 0,
+                        "Plans": [
+                          {
+                            "Node Type": "Bitmap Index Scan",
+                            "Parent Relationship": "Outer",
+                            "Parallel Aware": false,
+                            "Async Capable": false,
+                            "Index Name": "research_bench_history_idx",
+                            "Startup Cost": 0,
+                            "Total Cost": 4.31,
+                            "Plan Rows": 3,
+                            "Plan Width": 0,
+                            "Actual Startup Time": 0.153,
+                            "Actual Total Time": 0.153,
+                            "Actual Rows": 2000,
+                            "Actual Loops": 1,
+                            "Index Cond": "((\"userId\" = 'cmvasrveo00001wuh8mgnm8ia'::text) AND (\"scannedAt\" >= '2026-10-15 10:00:53.991'::timestamp without time zone))",
+                            "Shared Hit Blocks": 24,
+                            "Shared Read Blocks": 0,
+                            "Shared Dirtied Blocks": 0,
+                            "Shared Written Blocks": 0,
+                            "Local Hit Blocks": 0,
+                            "Local Read Blocks": 0,
+                            "Local Dirtied Blocks": 0,
+                            "Local Written Blocks": 0,
+                            "Temp Read Blocks": 0,
+                            "Temp Written Blocks": 0
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Planning": {
+                "Shared Hit Blocks": 0,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0
+              },
+              "Planning Time": 0.184,
+              "Triggers": [],
+              "Execution Time": 1.281
+            }
+          ]
+        }
+      ]
+    },
+    "index": "temporary identical-order composite index; removed after experiment"
+  },
+  "http": {
+    "baseline": {
+      "/health": {
+        "medianMs": 2.762300000000323,
+        "p95Ms": 5.378600000000006,
+        "samples": 20
+      },
+      "/scans?limit=20": {
+        "medianMs": 12.038099999999758,
+        "p95Ms": 12.941100000000006,
+        "samples": 20
+      },
+      "/analytics/overview": {
+        "medianMs": 20.262000000000626,
+        "p95Ms": 22.125200000000405,
+        "samples": 20
+      }
+    },
+    "current": {
+      "/health": {
+        "medianMs": 1.6102000000000771,
+        "p95Ms": 3.548899999999776,
+        "samples": 20
+      },
+      "/scans?limit=20": {
+        "medianMs": 11.491100000000188,
+        "p95Ms": 12.003099999999904,
+        "samples": 20
+      },
+      "/analytics/overview": {
+        "medianMs": 22.1233000000002,
+        "p95Ms": 30.448300000000017,
+        "samples": 20
+      }
+    }
+  }
+}

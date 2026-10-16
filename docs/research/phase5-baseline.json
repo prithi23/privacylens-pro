@@ -1,0 +1,95 @@
+{
+  "phase": 5,
+  "checkpoint": "a97e5e0",
+  "measuredAt": "2026-10-16T09:35:52.997Z",
+  "node": "v24.12.0",
+  "scope": "Synthetic 1000-observation analysis, 5 warmups, 30 iterations; includes validation/domain grouping/scoring, excludes DOM collection/network",
+  "baselineUnitTests": 121,
+  "baselinePostgresTests": 57,
+  "medianMs": 5.788400000000138,
+  "p95Ms": 9.61909999999989,
+  "samplesMs": [
+    3.160899999999856, 4.181799999999839, 4.196700000000192, 4.390600000000177,
+    4.441600000000108, 5.253699999999981, 5.287900000000036, 5.325800000000072,
+    5.326099999999997, 5.574700000000121, 5.6340000000000146, 5.64689999999996,
+    5.657399999999825, 5.668799999999919, 5.68119999999999, 5.788400000000138,
+    5.792100000000119, 6.18300000000022, 6.239900000000034, 6.340599999999995,
+    6.736599999999953, 6.778700000000072, 6.898799999999937, 7.30619999999999,
+    7.3612000000000535, 7.897300000000087, 8.01929999999993, 8.921199999999999,
+    9.61909999999989, 14.096000000000004
+  ],
+  "bundles": [
+    {
+      "app": "extension",
+      "name": "es6-DEE8FQgo.js",
+      "bytes": 347920,
+      "gzipBytes": 134712
+    },
+    {
+      "app": "extension",
+      "name": "index-BQ2qOzat.js",
+      "bytes": 240671,
+      "gzipBytes": 75074
+    },
+    {
+      "app": "extension",
+      "name": "scan-BNoffwzX.js",
+      "bytes": 10356,
+      "gzipBytes": 4288
+    },
+    {
+      "app": "extension",
+      "name": "SyncPanel-DK9x7pDO.js",
+      "bytes": 6641,
+      "gzipBytes": 2756
+    },
+    {
+      "app": "web",
+      "name": "Comparison-eLFt-Bgo.js",
+      "bytes": 3754,
+      "gzipBytes": 1545
+    },
+    {
+      "app": "web",
+      "name": "DataUI-Buj8slhu.js",
+      "bytes": 3136,
+      "gzipBytes": 1309
+    },
+    {
+      "app": "web",
+      "name": "History-tH40WiyP.js",
+      "bytes": 6341,
+      "gzipBytes": 2392
+    },
+    {
+      "app": "web",
+      "name": "index-DDPdDPu-.js",
+      "bytes": 322562,
+      "gzipBytes": 98407
+    },
+    {
+      "app": "web",
+      "name": "Intelligence-Bfdk_1jJ.js",
+      "bytes": 2109,
+      "gzipBytes": 1001
+    },
+    {
+      "app": "web",
+      "name": "LineChart-CfPWXsJ5.js",
+      "bytes": 353726,
+      "gzipBytes": 101971
+    },
+    {
+      "app": "web",
+      "name": "Overview-_h0X-DDv.js",
+      "bytes": 24209,
+      "gzipBytes": 8156
+    },
+    {
+      "app": "web",
+      "name": "Settings-C6A7dw0P.js",
+      "bytes": 6866,
+      "gzipBytes": 2511
+    }
+  ]
+}

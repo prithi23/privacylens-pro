@@ -1,0 +1,6 @@
+{
+  "measuredAt": "2026-10-16T13:13:19.120Z",
+  "evaluationRouteObservedMs": 423.10000002384186,
+  "nativeScanObservedMs": 125.2999999821186,
+  "note": "Single observed browser samples, including CDP/polling overhead; not pure rendering or collector timings and not a before/after claim."
+}

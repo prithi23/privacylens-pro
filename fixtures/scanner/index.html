@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; img-src 'self'; frame-src 'none'; connect-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'"
+    />
+    <title>PrivacyLens controlled scan fixture</title>
+    <style>
+      body {
+        background: #080d1c;
+        color: #e7edf8;
+        font: 16px/1.8 system-ui;
+        max-width: 850px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #22d3ee;
+      }
+      code {
+        color: #bca5ff;
+      }
+      aside {
+        padding: 20px;
+        border: 1px solid #22d3ee55;
+        border-radius: 12px;
+      }
+      img {
+        max-width: 65px;
+      }
+      #references {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PrivacyLens controlled scan fixture</h1>
+    <p>
+      This page contains real DOM references for testing. Its CSP blocks every
+      external reference; references are not evidence of completed requests.
+    </p>
+    <aside>
+      <strong>Expected when scanned over local HTTP:</strong>
+      <ul>
+        <li>
+          4 recognized third-party providers: Google Analytics, Google
+          DoubleClick, Meta Pixel, Hotjar.
+        </li>
+        <li>
+          6 third-party site domains: 4 recognized provider sites and 2
+          unclassified sites.
+        </li>
+        <li>
+          Score:
+          <code
+            >100 − 25 (HTTP) − 45 (provider cap) − 6 (other sites) − 0 =
+            24</code
+          >.
+        </li>
+        <li>
+          Duplicate Google Analytics references do not add provider penalties.
+        </li>
+        <li>
+          <code>notgoogle-analytics.com</code> must not match Google Analytics.
+        </li>
+        <li>
+          Local script and image produce first-party resource observations and
+          real Resource Timing entries.
+        </li>
+      </ul>
+    </aside>
+    <p>
+      Reload the unpacked extension, open its popup, and click
+      <strong>Scan Website</strong>. Every result must come from this page. No
+      fixture values are imported into the product UI.
+    </p>
+    <img src="/logo.svg" alt="First-party shield fixture" />
+    <div id="references"></div>
+    <script src="/fixture.js"></script>
+  </body>
+</html>

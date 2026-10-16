@@ -1,0 +1,10 @@
+node_modules
+.dependency-resolution
+.browser-smoke
+dist
+dist-production
+release-artifacts
+backups
+private-data
+package-lock.json
+apps/api/src/generated

@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique @db.VarChar(254)
+  passwordHash String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  devices      Device[]
+  scans        Scan[]
+  preference   UserPreference?
+  sessions     Session[]
+  pairingCodes PairingCode[]
+}
+
+model Device {
+  id             String    @id @default(cuid())
+  userId         String
+  displayName    String    @db.VarChar(100)
+  credentialHash String    @unique
+  createdAt      DateTime  @default(now())
+  lastUsedAt     DateTime?
+  revokedAt      DateTime?
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scans          Scan[]
+
+  @@index([userId, revokedAt])
+}
+
+model Scan {
+  id                    String    @id @default(cuid())
+  userId                String
+  hostname              String    @db.VarChar(253)
+  privacyScore          Int
+  concernLevel          String    @db.VarChar(16)
+  httpsStatus           String    @db.VarChar(16)
+  thirdPartyDomainCount Int
+  trackerMatchCount     Int
+  scannedAt             DateTime
+  createdAt             DateTime  @default(now())
+  deviceId              String?
+  clientUploadId        String?   @db.Uuid
+  analysis              Json?     @db.JsonB
+  device                Device?   @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  findings              Finding[]
+
+  @@index([userId, scannedAt])
+  @@index([userId, hostname, scannedAt])
+  @@unique([deviceId, clientUploadId])
+}
+
+model Finding {
+  id               String @id @default(cuid())
+  scanId           String
+  category         String @db.VarChar(32)
+  severity         String @db.VarChar(16)
+  description      String @db.VarChar(500)
+  evidenceHostname String @db.VarChar(253)
+  scan             Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+}
+
+model TrackerProvider {
+  id          String          @id
+  name        String          @unique
+  category    String          @db.VarChar(32)
+  description String
+  referenceMetadata Json? @db.JsonB
+  domains     TrackerDomain[]
+}
+
+model TrackerDomain {
+  id         String          @id @default(cuid())
+  providerId String
+  domain     String          @unique @db.VarChar(253)
+  provider   TrackerProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@index([providerId])
+}
+
+model UserPreference {
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  syncEnabled   Boolean @default(false)
+  retentionDays Int     @default(30)
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PairingCode {
+  id        String    @id @default(cuid())
+  userId    String
+  codeHash  String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Optional local guard. CI repeats it; --no-verify/force-add can bypass Git hooks.
+npm run security:repo
